@@ -87,9 +87,18 @@ export class NgxGalleryComponent implements OnInit, DoCheck, AfterViewInit {
     }
 
     getThumbnailsHeight(): string {
-        if (this.currentOptions.image) {
+        if (this.currentOptions.image&&!this.currentOptions.thumbnailsStayRight) {
             return 'calc(' + this.currentOptions.thumbnailsPercent + '% - '
             + this.currentOptions.thumbnailsMargin + 'px)';
+        } else {
+            return '100%';
+        }
+    }
+
+    getThumbnailsWidth(): string {
+        if (this.currentOptions.image&&this.currentOptions.thumbnailsStayRight) {
+            return 'calc(' + this.currentOptions.thumbnailsPercent + '% - '
+                + this.currentOptions.thumbnailsMargin + 'px)';
         } else {
             return '100%';
         }

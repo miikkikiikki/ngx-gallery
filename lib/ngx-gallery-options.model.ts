@@ -22,6 +22,7 @@ export interface INgxGalleryOptions {
     thumbnailsArrowsAutoHide?: boolean;
     thumbnailsSwipe?: boolean;
     thumbnailMargin?: number;
+    thumbnailsStayRight?: boolean;
     preview?: boolean;
     previewDescription?: boolean;
     previewSwipe?: boolean;
@@ -51,6 +52,7 @@ export class NgxGalleryOptions implements INgxGalleryOptions {
     thumbnailsArrowsAutoHide?: boolean;
     thumbnailsSwipe?: boolean;
     thumbnailMargin?: number;
+    thumbnailsStayRight?: boolean;
     preview?: boolean;
     previewDescription?: boolean;
     previewSwipe?: boolean;
@@ -88,6 +90,7 @@ export class NgxGalleryOptions implements INgxGalleryOptions {
         this.thumbnailsArrowsAutoHide = use(obj.thumbnailsArrowsAutoHide, false);
         this.thumbnailsSwipe = use(obj.thumbnailsSwipe, false);
         this.thumbnailMargin = use(obj.thumbnailMargin, 10);
+        this.thumbnailsStayRight = use(obj.thumbnailsStayRight, false);
 
         this.preview = use(obj.preview, true);
         this.previewDescription = use(obj.previewDescription, true);

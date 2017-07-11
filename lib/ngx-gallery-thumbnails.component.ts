@@ -11,6 +11,7 @@ import { NgxGalleryHelperService } from './ngx-gallery-helper.service';
 export class NgxGalleryThumbnailsComponent implements OnChanges {
 
     thumbnailsLeft: string;
+    thumbnailsTop: string;
     mouseenter: boolean;
 
     @Input() images: string[];
@@ -22,6 +23,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
     @Input() selectedIndex: number;
     @Input() clickable: boolean;
     @Input() swipe: boolean;
+    @Input() thumbnailsStayRight: boolean;
 
     @Output() onActiveChange = new EventEmitter();
 
@@ -44,6 +46,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
             this.helperService.manageSwipe(this.swipe, this.elementRef,
             'thumbnails', () => this.moveRight(), () => this.moveLeft());
         }
+        console.log(this.thumbnailsStayRight);
     }
 
     @HostListener('mouseenter') onMouseEnter() {
@@ -99,17 +102,30 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
     }
 
     getThumbnailWidth(): SafeStyle {
-        return this.getThumbnailDimension(this.columns);
+        if(this.thumbnailsStayRight)
+            return this.getThumbnailDimension(this.rows);
+        else
+            return this.getThumbnailDimension(this.columns);
     }
 
     getThumbnailHeight(): SafeStyle {
-        return this.getThumbnailDimension(this.rows);
+        if(this.thumbnailsStayRight)
+            return this.getThumbnailDimension(this.columns);
+        else
+            return this.getThumbnailDimension(this.rows);
     }
 
     setThumbnailsPosition(): void {
-        this.thumbnailsLeft = 'calc(-' + ((100 / this.columns) * this.index)
-            + '% - ' + ((this.margin - (((this.columns - 1)
-            * this.margin) / this.columns)) * this.index) + 'px)';
+        if(this.thumbnailsStayRight){
+            this.thumbnailsLeft = 'calc(-' + ((100 / this.columns) * this.index)
+                + '% - ' + ((this.margin - (((this.columns - 1)
+                * this.margin) / this.columns)) * this.index) + 'px)';
+            this.thumbnailsTop = '0px';
+        }else
+            this.thumbnailsTop = 'calc(-' + ((100 / this.columns) * this.index)
+                + '% - ' + ((this.margin - (((this.columns - 1)
+                * this.margin) / this.columns)) * this.index) + 'px)';
+            this.thumbnailsLeft = '0px';
     }
 
     setDefaultPosition(): void {

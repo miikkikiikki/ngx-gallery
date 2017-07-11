@@ -16,7 +16,7 @@
 }
 
 .fa {
-    &.fa-arrow-circle-left, &.fa-arrow-circle-right {
+    &.fa-angle-left, &.fa-angle-right {
         top: 50%;
         transform: translateY(-50%);
         cursor: pointer;
@@ -27,11 +27,11 @@
         }
     }
 
-    &.fa-arrow-circle-left {
+    &.fa-angle-left {
         left: 10px;
     }
 
-    &.fa-arrow-circle-right {
+    &.fa-angle-right {
         right: 10px;
     }
 }

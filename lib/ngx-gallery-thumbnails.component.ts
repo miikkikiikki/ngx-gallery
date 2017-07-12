@@ -46,7 +46,6 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
             this.helperService.manageSwipe(this.swipe, this.elementRef,
             'thumbnails', () => this.moveRight(), () => this.moveLeft());
         }
-        console.log(this.thumbnailsStayRight);
     }
 
     @HostListener('mouseenter') onMouseEnter() {
@@ -92,40 +91,49 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
     }
 
     getThumbnailLeft(index: number): SafeStyle {
+        if(this.thumbnailsStayRight){
+            const calculatedIndex = index % this.rows;
+            return this.getThumbnailPosition(calculatedIndex, this.rows);
+        }
         const calculatedIndex = Math.floor(index / this.rows);
         return this.getThumbnailPosition(calculatedIndex, this.columns);
     }
 
     getThumbnailTop(index: number): SafeStyle {
+        if(this.thumbnailsStayRight){
+            const calculatedIndex = Math.floor(index / this.rows);
+            return this.getThumbnailPosition(calculatedIndex, this.columns);
+        }
         const calculatedIndex = index % this.rows;
         return this.getThumbnailPosition(calculatedIndex, this.rows);
     }
 
     getThumbnailWidth(): SafeStyle {
-        if(this.thumbnailsStayRight)
+        if(this.thumbnailsStayRight) {
             return this.getThumbnailDimension(this.rows);
-        else
-            return this.getThumbnailDimension(this.columns);
+        }
+        return this.getThumbnailDimension(this.columns);
     }
 
     getThumbnailHeight(): SafeStyle {
-        if(this.thumbnailsStayRight)
+        if(this.thumbnailsStayRight){
             return this.getThumbnailDimension(this.columns);
-        else
-            return this.getThumbnailDimension(this.rows);
+        }
+        return this.getThumbnailDimension(this.rows);
     }
 
     setThumbnailsPosition(): void {
+        const calculatedTumbSize = 'calc(-' + ((100 / this.columns) * this.index)
+            + '% - ' + ((this.margin - (((this.columns - 1)
+            * this.margin) / this.columns)) * this.index) + 'px)';
         if(this.thumbnailsStayRight){
-            this.thumbnailsLeft = 'calc(-' + ((100 / this.columns) * this.index)
-                + '% - ' + ((this.margin - (((this.columns - 1)
-                * this.margin) / this.columns)) * this.index) + 'px)';
-            this.thumbnailsTop = '0px';
-        }else
-            this.thumbnailsTop = 'calc(-' + ((100 / this.columns) * this.index)
-                + '% - ' + ((this.margin - (((this.columns - 1)
-                * this.margin) / this.columns)) * this.index) + 'px)';
+            this.thumbnailsTop = calculatedTumbSize;
             this.thumbnailsLeft = '0px';
+        }else {
+            this.thumbnailsLeft = calculatedTumbSize;
+            this.thumbnailsTop = '0px';
+        }
+
     }
 
     setDefaultPosition(): void {

@@ -14,12 +14,14 @@
 }
 
 .ngx-gallery-image {
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
     position: absolute;
-    top: 0px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 0;
+    margin: auto;
+    max-height: 100%;
 
     &.ngx-gallery-active {
         z-index: 1000;
@@ -55,11 +57,11 @@
         }
 
         &.ngx-gallery-inactive-left {
-            left: -100%;
+            left: -200%;
         }
 
         &.ngx-gallery-inactive-right {
-            left: 100%;
+            left: 200%;
         }
     }
 }

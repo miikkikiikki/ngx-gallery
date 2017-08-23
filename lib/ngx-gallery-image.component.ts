@@ -62,15 +62,21 @@ export class NgxGalleryImageComponent implements OnInit, OnChanges {
     showNext(): void {
         if (this.canShowNext()) {
             this.selectedIndex++;
-            this.onActiveChange.emit(this.selectedIndex);
         }
+        else {
+            this.selectedIndex=0;
+        }
+        this.onActiveChange.emit(this.selectedIndex);
     }
 
     showPrev(): void {
-        if (this.canShowPrev()) {
+        if (this.canShowPrev()){
             this.selectedIndex--;
-            this.onActiveChange.emit(this.selectedIndex);
         }
+        else {
+            this.selectedIndex = this.images.length - 1;
+        }
+        this.onActiveChange.emit(this.selectedIndex);
     }
 
     canShowNext(): boolean {

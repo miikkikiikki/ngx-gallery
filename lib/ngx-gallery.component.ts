@@ -40,7 +40,7 @@ export class NgxGalleryComponent implements OnInit, DoCheck, AfterViewInit {
     @HostBinding('style.height') height: string;
     @HostBinding('style.left') left: string;
 
-    constructor(private myElement: ElementRef) {}
+    constructor(public myElement: ElementRef) {}
 
     ngOnInit() {
         this.options = this.options.map(opt => new NgxGalleryOptions(opt));
